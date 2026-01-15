@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env
+.env.*
+*.egg-info/
+dist/
+build/
+
+# Database (contains user data!)
+*.db
+*.sqlite
+*.sqlite3
+
+# Credentials (CRITICAL - never commit these!)
+credentials.json
+credentials.json.backup
+token.json
+*.pem
+*.key
+
+# Node
+node_modules/
+.npm
+package-lock.json
+
+# Build outputs
+frontend/dist/
+frontend/build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Claude Code (personal settings)
+.claude/
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Backup files
+*.backup
+
+# Uploads (user data)
+backend/uploads/
+
+# Documentation (not source code)
+docs/
+API_ENDPOINTS.md
+
+# Vite default files
+frontend/README.md
+frontend/public/vite.svg
+frontend/src/assets/

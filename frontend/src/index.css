@@ -1,0 +1,850 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/*
+ * SmartInbox Premium Design System
+ * Inspired by: Superhuman, Linear, Raycast
+ * Key principles: Surface hierarchy, subtle depth, premium feel
+ */
+
+:root {
+  /* Superhuman-style Dark Theme - Surface Hierarchy */
+  /* "The closer the layer is to the user, the lighter the surface" */
+  --bg-base: #0a0a0b;           /* Deepest background */
+  --bg-surface: #111113;        /* Main content background */
+  --bg-raised: #18181b;         /* Raised elements (cards, sidebars) */
+  --bg-overlay: #1f1f23;        /* Overlays, dropdowns */
+  --bg-spotlight: #27272a;      /* Hover states, active items */
+  --bg-elevated: #2e2e33;       /* Modals, popovers - closest to user */
+
+  /* Border system - very subtle */
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(99, 102, 241, 0.5);
+
+  /* Text hierarchy - 90% opacity max to prevent halation */
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --text-disabled: rgba(255, 255, 255, 0.25);
+
+  /* Accent - Premium indigo/violet gradient */
+  --accent-primary: #6366f1;
+  --accent-hover: #818cf8;
+  --accent-muted: rgba(99, 102, 241, 0.15);
+  --accent-subtle: rgba(99, 102, 241, 0.08);
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+
+  /* Semantic colors */
+  --success: #22c55e;
+  --success-muted: rgba(34, 197, 94, 0.15);
+  --warning: #f59e0b;
+  --warning-muted: rgba(245, 158, 11, 0.15);
+  --danger: #ef4444;
+  --danger-muted: rgba(239, 68, 68, 0.15);
+
+  /* Shadows - creates depth on dark backgrounds */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.7), 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.25);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  /* Ring for focus states */
+  --ring-focus: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--accent-primary);
+
+  /* Blur for glassmorphism */
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 24px;
+
+  /* Transitions */
+  --transition-fast: 100ms ease;
+  --transition-base: 150ms ease;
+  --transition-slow: 250ms ease;
+
+  /* Radius system */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Light Theme - Premium light with subtle warmth */
+.light-theme {
+  --bg-base: #fafafa;
+  --bg-surface: #ffffff;
+  --bg-raised: #ffffff;
+  --bg-overlay: #ffffff;
+  --bg-spotlight: #f4f4f5;
+  --bg-elevated: #ffffff;
+
+  --border-subtle: rgba(0, 0, 0, 0.04);
+  --border-default: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.12);
+
+  --text-primary: rgba(0, 0, 0, 0.88);
+  --text-secondary: rgba(0, 0, 0, 0.65);
+  --text-muted: rgba(0, 0, 0, 0.45);
+  --text-disabled: rgba(0, 0, 0, 0.25);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Base reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.5;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-muted);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   BUTTONS - Premium with subtle gradients
+   ======================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus);
+}
+
+.btn-primary {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: var(--shadow-sm), var(--shadow-inset);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.btn-primary:active {
+  filter: brightness(0.95);
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+
+.btn-secondary {
+  background: var(--bg-raised);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-spotlight);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-spotlight);
+  color: var(--text-secondary);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  filter: brightness(1.1);
+}
+
+/* Icon-only button */
+.btn-icon {
+  padding: 8px;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+/* Small button variant */
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+  min-height: 28px;
+  gap: 4px;
+}
+
+/* ========================================
+   INPUTS - Clean with focus rings
+   ======================================== */
+
+.input {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-xs);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:hover {
+  border-color: var(--border-strong);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: var(--ring-focus);
+}
+
+/* Select */
+select.input {
+  appearance: none;
+  padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+}
+
+/* Checkbox */
+.checkbox {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--bg-surface);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.checkbox:checked {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4.5px;
+  top: 1.5px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox:focus-visible {
+  box-shadow: var(--ring-focus);
+}
+
+/* ========================================
+   BADGES - Minimal and clean
+   ======================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  text-transform: capitalize;
+}
+
+.badge-primary { background: var(--accent-subtle); color: var(--accent-primary); }
+.badge-work { background: var(--danger-muted); color: #f87171; }
+.badge-personal { background: var(--success-muted); color: #4ade80; }
+.badge-social { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+.badge-promotions { background: var(--warning-muted); color: #fbbf24; }
+.badge-updates { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+.badge-finance { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.badge-newsletters { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+
+/* ========================================
+   AVATAR - Gradient with subtle glow
+   ======================================== */
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius: var(--radius-md);
+  background: var(--accent-gradient);
+  color: white;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+/* ========================================
+   GLASS MORPHISM - For modals/overlays
+   ======================================== */
+
+.glass {
+  background: rgba(17, 17, 19, 0.8);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-strong {
+  background: rgba(17, 17, 19, 0.95);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--border-default);
+}
+
+.light-theme .glass {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.light-theme .glass-strong {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* ========================================
+   EMAIL ITEMS - Superhuman-style
+   ======================================== */
+
+.email-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.email-item:hover {
+  background: var(--bg-spotlight);
+}
+
+.email-item.selected {
+  background: var(--accent-subtle);
+}
+
+.email-item.selected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent-primary);
+}
+
+.email-item.unread {
+  background: var(--accent-subtle);
+}
+
+.email-item.unread::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background: var(--bg-spotlight);
+  color: var(--text-secondary);
+}
+
+.nav-item.active {
+  background: var(--accent-subtle);
+  color: var(--accent-primary);
+}
+
+/* ========================================
+   PROSE - Email content
+   ======================================== */
+
+.prose {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.prose a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: var(--accent-hover);
+}
+
+.prose strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.prose code {
+  background: var(--bg-raised);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: 'SF Mono', Monaco, monospace;
+}
+
+.prose pre {
+  background: var(--bg-raised);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--accent-primary);
+  padding-left: 16px;
+  margin-left: 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ========================================
+   ANIMATIONS - Subtle and smooth
+   ======================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fadeIn { animation: fadeIn var(--transition-base); }
+.animate-slideUp { animation: slideUp var(--transition-slow); }
+.animate-slideDown { animation: slideDown var(--transition-slow); }
+.animate-scaleIn { animation: scaleIn var(--transition-slow); }
+.animate-spin { animation: spin 1s linear infinite; }
+.animate-pulse { animation: pulse 2s ease-in-out infinite; }
+
+/* Stagger children */
+.stagger > * {
+  animation: slideUp var(--transition-slow) backwards;
+}
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 30ms; }
+.stagger > *:nth-child(3) { animation-delay: 60ms; }
+.stagger > *:nth-child(4) { animation-delay: 90ms; }
+.stagger > *:nth-child(5) { animation-delay: 120ms; }
+
+/* ========================================
+   SKELETON LOADER
+   ======================================== */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-raised) 25%,
+    var(--bg-spotlight) 50%,
+    var(--bg-raised) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ========================================
+   KEYBOARD SHORTCUT HINTS
+   ======================================== */
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: 'SF Mono', Monaco, monospace;
+  color: var(--text-muted);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  box-shadow: 0 1px 0 var(--border-default);
+}
+
+/* ========================================
+   TOOLTIP
+   ======================================== */
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+  z-index: 100;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ========================================
+   DIVIDER
+   ======================================== */
+
+.divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 8px 0;
+}
+
+/* ========================================
+   SPOTLIGHT / COMMAND PALETTE STYLE
+   ======================================== */
+
+.spotlight-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+}
+
+.spotlight-container {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 560px;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  z-index: 101;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.theme-bg-base { background-color: var(--bg-base); }
+.theme-bg-surface { background-color: var(--bg-surface); }
+.theme-bg-raised { background-color: var(--bg-raised); }
+.theme-bg-overlay { background-color: var(--bg-overlay); }
+.theme-bg-spotlight { background-color: var(--bg-spotlight); }
+.theme-bg-elevated { background-color: var(--bg-elevated); }
+
+.theme-text-primary { color: var(--text-primary); }
+.theme-text-secondary { color: var(--text-secondary); }
+.theme-text-muted { color: var(--text-muted); }
+
+.theme-border-subtle { border-color: var(--border-subtle); }
+.theme-border-default { border-color: var(--border-default); }
+.theme-border-strong { border-color: var(--border-strong); }
+
+/* ========================================
+   EMAIL HTML CONTENT - Gmail-style rendering
+   ======================================== */
+
+.email-html-content {
+  width: 100%;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* CRITICAL: Force ALL nested elements to respect width */
+.email-html-content *,
+.email-html-content *::before,
+.email-html-content *::after {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Force images to be responsive */
+.email-html-content img {
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  display: block;
+}
+
+/* Force tables to not break layout */
+.email-html-content table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse;
+}
+
+.email-html-content table td,
+.email-html-content table th {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 4px;
+  border: none;
+}
+
+/* Reset margins and padding */
+.email-html-content > * {
+  margin: 0;
+  padding: 0;
+}
+
+.email-html-content p {
+  margin-bottom: 0.5em;
+}
+
+.email-html-content h1,
+.email-html-content h2,
+.email-html-content h3,
+.email-html-content h4 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.email-html-content h1 { font-size: 1.5em; }
+.email-html-content h2 { font-size: 1.3em; }
+.email-html-content h3 { font-size: 1.2em; }
+.email-html-content h4 { font-size: 1.1em; }
+
+.email-html-content ul,
+.email-html-content ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.email-html-content li {
+  margin-bottom: 0.25em;
+}
+
+.email-html-content a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  word-break: break-word;
+}
+
+.email-html-content a:hover {
+  color: var(--accent-hover);
+}
+
+.email-html-content blockquote {
+  margin: 0.5em 0;
+  padding-left: 1em;
+  border-left: 3px solid var(--accent-primary);
+  color: var(--text-secondary);
+}
+
+.email-html-content pre,
+.email-html-content code {
+  background: var(--bg-raised);
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
+  font-family: monospace;
+  font-size: 0.9em;
+  overflow-x: auto;
+}
+
+.email-html-content hr {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: 1em 0;
+}
+
+/* Handle centered content */
+.email-html-content center {
+  text-align: center;
+}
+
+/* Override inline widths */
+.email-html-content [width],
+.email-html-content [style*="width"] {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+/* Fix font tags */
+.email-html-content font {
+  font-family: inherit !important;
+}
+
+/* Ensure divs don't overflow */
+.email-html-content div {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+/* ========================================
+   RESPONSIVE HELPERS
+   ======================================== */
+
+@media (max-width: 768px) {
+  body {
+    font-size: 13px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+  }
+}
